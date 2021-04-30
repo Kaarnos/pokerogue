@@ -1,0 +1,49 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+}
+
+#map {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 320px;
+  margin-left: 20px;
+  /* border: solid 1px; */
+}
+
+.room {
+  height: 40px;
+  width: 40px;
+  border: solid black 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exist {
+  background-color: aquamarine;
+}
+
+.empty {
+  /* background-color:grey; */
+  border: none;
+}
+
+.treasure {
+  background-color:khaki;
+}
+
+.boss {
+  background-color:red;
+}
+
+canvas {
+  border: double 3px;
+}
+
+
