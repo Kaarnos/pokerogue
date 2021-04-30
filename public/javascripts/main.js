@@ -104,6 +104,11 @@ let charSprites = null; // Declare img element
 let charSpritesURL = './images/red-sprite.png';
 let charSpritesLoaded = false;
 
+// Character
+let pokeIcon = null; // Declare img element
+let pokeIconURL = './images/icon_gif/Ani001MS.gif';
+let pokeIconLoaded = false;
+
 // Floor types
 let floorTypes = {
   solid: 0,
@@ -148,6 +153,23 @@ let keysDown = {
 
 
 ////////// INITIALIZATION
+class Pokemon {
+  constructor() {
+    this.dimensions = [64, 64]; // px
+    this.tileFrom = [1, 1]; // Tile where movement started
+    this.tileTo = [1, 1]; // Tile where movement ends
+    this.position = [64, 64] // px
+  }
+
+  placeAt(x, y) { // Place the character at tile [x,y]
+    this.tileFrom = [x, y];
+    this.tileTo = [x, y];
+    this.position = [tileW * x, tileH * y + (tileH - this.dimensions[1])]; // Modify if character is not same size than tile
+  }
+}
+
+let bulbasaur = new Pokemon()
+bulbasaur.placeAt(3,3);
 
 class Character { // Character class
   constructor() {
@@ -283,6 +305,7 @@ player.direction = directions.down;
 window.onload = () => {
   ctx = document.getElementById('game').getContext('2d');
   requestAnimationFrame(drawGame);
+  ctx.imageSmoothingEnabled = false;
   ctx.font = "bold 10pt sans-serif"; // for FPS text
 
   $(window).keydown(function(event) {
@@ -296,7 +319,7 @@ window.onload = () => {
   tileset = new Image();
   tileset.onerror = function () {
     ctx = null;
-    alter('Failed loading images');
+    alert('Failed loading images');
   }
   tileset.onload = function() {
     tilesetLoaded = true;
@@ -306,12 +329,23 @@ window.onload = () => {
   charSprites = new Image();
   charSprites.onerror = function () {
     ctx = null;
-    alter('Failed loading images');
+    alert('Failed loading images');
   }
   charSprites.onload = function() {
     charSpritesLoaded = true;
   }
   charSprites.src = charSpritesURL;
+
+  pokeIcon = new Image();
+  pokeIcon.onerror = function () {
+    ctx = null;
+    alert('Failed loading images');
+  }
+  pokeIcon.onload = function() {
+    pokeIconLoaded = true;
+  }
+  pokeIcon.src = pokeIconURL;
+
 
 
   for (let key in player.sprites) {
@@ -337,7 +371,7 @@ function drawGame() {
   if (ctx === null) { // Prevent errors
     return;
   }
-  if(!tilesetLoaded || !charSpritesLoaded) { // Wait for images loading
+  if(!tilesetLoaded || !charSpritesLoaded ||!pokeIconLoaded) { // Wait for images loading
     requestAnimationFrame(drawGame);
     // console.log("not loaded");
     return;
@@ -414,11 +448,19 @@ function drawGame() {
   let timeElapsed = currentFrameTime - player.timeMoved ;
   let frame = getFrame(charSprite.sprite, charSprite.spriteDuration, timeElapsed, isMoving);
   // console.log(currentFrameTime);
+ 
   // Render character
   ctx.drawImage(charSprites,
     frame.x, frame.y,
     frame.w, frame.h,
     player.position[0], player.position[1], player.dimensions[0], player.dimensions[1]
+  );
+
+  // Render pokemon
+  ctx.drawImage(pokeIcon,
+    0, 0,
+    32, 32,
+    bulbasaur.position[0], bulbasaur.position[1], bulbasaur.dimensions[0], bulbasaur.dimensions[1]
   );
 
 
