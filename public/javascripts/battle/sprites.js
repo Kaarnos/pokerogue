@@ -23,8 +23,8 @@ const pokemonSpriteURL = '../images/pokemon.png';
 const pokemonSpriteCoords = {};
 
 // Creation of sprites
-let interfaceSprite = new Sprite(interfaceSpriteURL, interfaceSpriteCoords);
-let battleBgSprite = new Sprite(battleBgSpriteURL, battleBgSpriteCoords);
-let pokemonSprite = new Sprite(pokemonSpriteURL, pokemonSpriteCoords);
+const interfaceSprite = new Sprite(interfaceSpriteURL, interfaceSpriteCoords);
+const battleBgSprite = new Sprite(battleBgSpriteURL, battleBgSpriteCoords);
+const pokemonSprite = new Sprite(pokemonSpriteURL, pokemonSpriteCoords);
 
 export {interfaceSprite, battleBgSprite, pokemonSprite};

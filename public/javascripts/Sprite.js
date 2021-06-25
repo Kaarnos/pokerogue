@@ -2,9 +2,9 @@ import {ctx} from './main.js'
 
 export default class Sprite {
   constructor(url, coords) {
-    this.el = null;
+    this.el = null; // Declare img element
     this.url = url;
-    this.loaded = false;
+    this.loaded = false; // bool to keep track of loading of img file
     this.coords = coords;
   }
 

@@ -123,6 +123,7 @@ export default class Pokemon {
       }) 
       .then((moveSetData) => {
         poke1.moveSet = moveSetData;
+        console.log('pokemon created');
         resolve(poke1);
       });
     })

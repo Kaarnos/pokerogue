@@ -66,4 +66,5 @@ let cursorPositions = {
 }
 
 
-export {tileW, tileH, mapW, mapH, floorTypes, tileTypes, directions, keysDown, cursorPositions}
+export {tileW, tileH, mapW, mapH, floorTypes, tileTypes, 
+  directions, keysDown, AButton, BButton, cursorPositions}

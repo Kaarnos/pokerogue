@@ -1,11 +1,15 @@
 // Game states
 let gameStates = {
   battle: {
-    intro: 0,
-    actionList: 1,
-    attackList: 2,
-    log: 3,
-    ending: 4
+    intro: 'battle_intro',
+    actionList: 'battle_actionList',
+    attackList: 'battle_attackList',
+    log: 'battle_log',
+    ending: 'battle_ending'
+  },
+  explo: {
+    default: 'explo_default',
+    menu: 'explo_menu'
   }
 }
 
