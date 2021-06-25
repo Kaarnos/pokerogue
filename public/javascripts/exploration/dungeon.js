@@ -1,3 +1,6 @@
+import {startRoom, treasureRoom, bossRoom, rooms} from './rooms.js';
+import {toIndex} from './utils.js'
+
 // Dungeon initialization
 let dungeon = [];
 for (let i = 0 ; i < 80 ; i++) {
@@ -13,10 +16,10 @@ let forbiddenRooms = [
 ];
 
 let nbRooms = 7; // Max 25
-let startRoom = 35;
+let startRoomIndex = 35;
 
-dungeon[startRoom] = {state: 'exist', distance: 0 };
-let queue = [startRoom];
+dungeon[startRoomIndex] = {state: 'exist', distance: 0 };
+let queue = [startRoomIndex];
 
 // Dungeon generating algorithm
 while (queue.length < nbRooms) {  
@@ -63,26 +66,47 @@ let deadends = queue.filter(room => dungeon[room].state === 'deadend');
 let rdmIndex = Math.floor(Math.random() * deadends.length);
 dungeon[deadends[rdmIndex]].state = 'treasure';
 
-dungeon[startRoom] = {state: 'start', distance: 0 };
+dungeon[startRoomIndex] = {state: 'start', distance: 0 };
 
-// Draw map
-// let mapEl = document.getElementById('map');
+// Fill dungeon with rooms
+let roomsCopy = [...rooms];
+dungeon.forEach((room, index) => {
+  if (room.state === 'exist' || room.state === 'deadend') {
+    let rdmIndex = Math.floor(Math.random()* roomsCopy.length);
+    room.room = [...roomsCopy[rdmIndex]];
+    roomsCopy.splice(rdmIndex, 1);
+    if (roomsCopy.length === 0) {
+      roomsCopy = [...rooms];
+    }
+  }
+  if (room.state === 'boss') {
+    room.room = bossRoom;
+  }
+  if (room.state === 'treasure') {
+    room.room = treasureRoom;
+  }
+  if (room.state === 'start') {
+    room.room = startRoom;
+  }
+  if (room.state !== 'empty' && dungeon[index + 10].state !== 'empty') {
+    room.room[toIndex(4, 9)] = 0;
+    room.room[toIndex(5, 9)] = 0;
+  }
+  if (room.state !== 'empty' && dungeon[index - 10].state !== 'empty') {
+    room.room[toIndex(4, 0)] = 0;
+    room.room[toIndex(5, 0)] = 0;
+  }
+  if (room.state !== 'empty' && dungeon[index + 1].state !== 'empty') {
+    room.room[toIndex(9, 4)] = 0;
+    room.room[toIndex(9, 5)] = 0;
+  }
+  if (room.state !== 'empty' && dungeon[index - 1].state !== 'empty') {
+    room.room[toIndex(0, 4)] = 0;
+    room.room[toIndex(0, 5)] = 0;
+  }
 
-// for (let i = 0; i < dungeon.length ; i++) {
-//   let room = document.createElement('div');
-//   if (dungeon[i].state === 'exist') {
-//     room.className = 'room exist'
-//   } else if (dungeon[i].state === 'deadend') {
-//     room.className = 'room deadend'
-//   } else if (dungeon[i].state === 'boss') {
-//     room.className = 'room boss'
-//   } else {
-//     room.className = 'room empty'
-//   }
-//   room.textContent = dungeon[i].distance
-//   mapEl.appendChild(room);
-  
-// }
+  return;
+});
 
 
 // UTILITY FUNCTIONS
@@ -119,7 +143,6 @@ function getNbOfNeighbours(room) {
   return nbOfNeighbours;
 }
 
-// console.log(dungeon);
 
 export default dungeon;
 
