@@ -309,6 +309,8 @@ async function drawGame() {
         canvas.width = 480;
         canvas.height = 320;
         drawBattleScreen();
+        drawBattleAttackList();
+        updateCursor();
         if (keysDown[AButton]) {
           myAttack.move = getSelectedMove();
           myAttack.move.currentPP -= 1;
@@ -357,8 +359,8 @@ async function drawGame() {
           gameState = gameStates.battle.actionList;
           cursorPosition = cursorPositions.action.topLeft
         }
-        updateCursor();
-        drawBattleAttackList();
+        
+        
         break;
   
       case gameStates.battle.log:
@@ -633,6 +635,8 @@ function drawBattleAttackList() {
   });
 
   let moveSelected = getSelectedMove();
+
+  // console.log('moveselected', moveSelected);
 
   // PP
   ctx.fillText(`${moveSelected.currentPP}`, 400, 265);
