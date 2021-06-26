@@ -131,7 +131,7 @@ async function setup() {
   gameState = gameStates.explo.default;
   logState = logStates.battle.intro;
   cursorPosition = cursorPositions.action.topLeft;
-
+  
   requestAnimationFrame(drawGame);
 }
 
@@ -154,16 +154,19 @@ async function drawGame() {
   // console.log('foePoke', foePoke);
   // Alisasing
   ctx.imageSmoothingEnabled = false;
+  // console.log(ctx.imageSmoothingEnabled);
 
   let currentFrameTime = Date.now(); // time at which the game is rendered
 
   switch (gameState) {
     case gameStates.explo.default:
+      // console.log(ctx.imageSmoothingEnabled);
       let width = 380;
       let height = 380;
       canvas.width = width;
-      canvas.height = height;      
-
+      canvas.height = height;
+      ctx.imageSmoothingEnabled = false;      
+      // console.log(ctx.imageSmoothingEnabled);
       if (keysDown[AButton]) {
         keysDown[AButton] = false;
         gameState = gameStates.battle.log;
@@ -224,7 +227,7 @@ async function drawGame() {
           // player.direction = directions.right;
         }
       }
-    
+
       // Render room
       for (let x = 0 ; x < mapW ; x++) {
         for (let y = 0 ; y < mapH ; y++) {
@@ -235,7 +238,7 @@ async function drawGame() {
           );
         }
       }
-    
+
       let charImage = player.sprites[player.direction];
       // console.log(isMoving);
       let timeElapsed = currentFrameTime - player.timeMoved ;
@@ -280,6 +283,7 @@ async function drawGame() {
       case gameStates.battle.actionList:
         canvas.width = 480;
         canvas.height = 320;
+        ctx.imageSmoothingEnabled = false;  
         drawBattleScreen();
         if (keysDown[AButton]) {
           // buttonDown = 'A';
@@ -308,6 +312,7 @@ async function drawGame() {
       case gameStates.battle.attackList:
         canvas.width = 480;
         canvas.height = 320;
+        ctx.imageSmoothingEnabled = false;  
         drawBattleScreen();
         drawBattleAttackList();
         updateCursor();
@@ -371,6 +376,7 @@ async function drawGame() {
 
         canvas.width = 480;
         canvas.height = 320;
+        ctx.imageSmoothingEnabled = false;  
         
         switch (logState) {
           case logStates.battle.intro:
@@ -480,8 +486,6 @@ async function drawGame() {
     default:
       break;
   }
-
-
 
 
 
