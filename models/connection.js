@@ -6,7 +6,7 @@ var options = {
     useNewUrlParser: true,
 }
 
-mongoose.connect("mongodb+srv://aranda:azerty@cluster0.semua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+mongoose.connect(process.env.DB,
     options,
     function(err){
         if(err){
