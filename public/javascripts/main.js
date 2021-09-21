@@ -91,6 +91,17 @@ async function setup() {
   requestAnimationFrame(drawGame);
 }
 
+const addPoke = async () => {
+  const rawData = await fetch(`http://localhost:3000/addPokemon`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `name=pikachu`
+    });
+  const data = await rawData.json();
+  console.log(data);
+  // return data;
+}
 // Start
 setup();
 
@@ -102,6 +113,13 @@ async function drawGame() {
     requestAnimationFrame(drawGame);
     return;
   }
+
+  if (keysDown[84]) {
+    addPoke();
+  }
+
+
+
   // if(!tilesetLoaded || !charSpritesLoaded ||!pokeIconLoaded) { // Wait for images loading
   //   requestAnimationFrame(drawGame);
   //   // console.log("not loaded");
