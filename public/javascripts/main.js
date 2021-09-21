@@ -114,9 +114,10 @@ async function drawGame() {
     return;
   }
 
-  if (keysDown[84]) {
-    addPoke();
-  }
+  // Test db
+  // if (keysDown[84]) {
+  //   addPoke();
+  // }
 
 
 
