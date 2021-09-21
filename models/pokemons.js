@@ -12,8 +12,12 @@ const pokemonSchema = mongoose.Schema({
     defense : Number,
     hp : Number,
     'special-attack': Number,
-    'special-defense': Number
-  }
+    'special-defense': Number,
+    speed : Number
+  },
+  baseXp: Number,
+  abilities: [{type: mongoose.Schema.Types.ObjectId, ref : 'abilities'}],
+  moves: [{type: mongoose.Schema.Types.ObjectId, ref : 'moves'}]
 });
 
 const PokemonModel = mongoose.model('pokemons', pokemonSchema);
