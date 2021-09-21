@@ -39,6 +39,20 @@ export default class Character { // Character class
       {x:140,y:197,w:38,h:57,d:this.delayMove/4},
       {x:204,y:197,w:38,h:57,d:this.delayMove/4}
       ]};
+
+    for (let key in this.sprites) {
+      this.sprites[key]['animated'] = this.sprites[key].sprite.length > 1 ? true : false;
+    
+      if (this.sprites[key].animated) {
+        let time = 0;
+        this.sprites[key].sprite.forEach(sprite => {
+          sprite['start'] = time;
+          time += sprite.d;
+          sprite['end'] = time;
+        })
+        this.sprites[key].spriteDuration = time;
+      }
+    }
   }
 
   placeAt(x, y) { // Place the character at tile [x,y]

@@ -8,10 +8,7 @@ import {tileW, tileH, mapW, mapH,
 import dungeon from './exploration/dungeon.js';
 // Classes
 import Character from './exploration/Character.js';
-import PokemonIcon from './exploration/PokemonIcon.js';
-
 import Pokemon from './battle/Pokemon.js';
-import Sprite from './Sprite.js';
 // Game States
 import {gameStates, logStates} from './gameStates.js';
 // Sprites
@@ -42,7 +39,7 @@ let logState;
 let logStage = 0;
 let cursorPosition;
 let myPokeFirst;
-let typesTable = {};
+let typesTable;
 let myPoke;
 let foePoke;
 let log;
@@ -57,22 +54,6 @@ let lastFrameTime = 0;
 let player = new Character();
 player.placeAt(4, 4);
 player.direction = directions.down;
-
-for (let key in player.sprites) {
-  player.sprites[key]['animated'] = player.sprites[key].sprite.length > 1 ? true : false;
-
-  if (player.sprites[key].animated) {
-    let time = 0;
-    for ( let indexSprite in player.sprites[key].sprite) {
-      player.sprites[key].sprite[indexSprite]['start'] = time;
-      time += player.sprites[key].sprite[indexSprite].d;
-      player.sprites[key].sprite[indexSprite]['end'] = time;
-      // console.log('finaltime', time + "_" + indexSprite);
-    }
-    player.sprites[key].spriteDuration = time;
-    
-  }
-}
 
 let canvas = document.getElementById('game'); //Declare canvas element
 let ctx = canvas.getContext('2d'); 
@@ -103,34 +84,9 @@ async function setup() {
   
   ctx.font = "bold 10pt sans-serif"; // for FPS text
 
-
-  for (let key in player.sprites) {
-    player.sprites[key]['animated'] = player.sprites[key].sprite.length > 1 ? true : false;
-
-    if (player.sprites[key].animated) {
-      let time = 0;
-      for ( let indexSprite in player.sprites[key].sprite) {
-        player.sprites[key].sprite[indexSprite]['start'] = time;
-        time += player.sprites[key].sprite[indexSprite].d;
-        player.sprites[key].sprite[indexSprite]['end'] = time;
-        // console.log('finaltime', time + "_" + indexSprite);
-      }
-      player.sprites[key].spriteDuration = time;
-      
-    }
-  }
-
-  // let rdm = Math.floor(Math.random() * 151);
-  // myPoke = await Pokemon.createByName(rdm, 25);
-  // rdm = Math.floor(Math.random() * 151);
-  // foePoke = await Pokemon.createByName(rdm, 25);
-  // console.log('myPoke', myPoke);
-  // console.log('foePoke', foePoke);
   typesTable = await fetchTypesTable();
-  // console.log(getModType('fighting', ['ghost']));
   gameState = gameStates.explo.default;
-  logState = logStates.battle.intro;
-  cursorPosition = cursorPositions.action.topLeft;
+  // cursorPosition = cursorPositions.action.topLeft;
   
   requestAnimationFrame(drawGame);
 }
@@ -170,10 +126,14 @@ async function drawGame() {
       if (keysDown[AButton]) {
         keysDown[AButton] = false;
         gameState = gameStates.battle.log;
+        logStage = 0;
+        logState = logStates.battle.intro;
         let rdm = Math.floor(Math.random() * 151);
         myPoke = await Pokemon.createByName(rdm, 25);
         rdm = Math.floor(Math.random() * 151);
-        foePoke = await Pokemon.createByName(rdm, 25);
+        foePoke = await Pokemon.createByName(10, 25);
+        console.log('myPoke', myPoke);
+        console.log('foePoke', foePoke);
       }
       let isMoving = true;
       // Check if there is movement and update the position of the player
@@ -471,8 +431,8 @@ async function drawGame() {
             drawBattleLog(log);
             if (logStage >= 2) {
               gameState = gameStates.explo.default
-              logStage = 0;
-              logState = logStates.battle.intro;
+              // logStage = 0;
+              // logState = logStates.battle.intro;
               // myPoke = await Pokemon.createByName(25, 25);
               // let rdm = Math.floor(Math.random() * 151);
               // foePoke = await Pokemon.createByName(rdm, 25);
@@ -729,10 +689,9 @@ function getSelectedMove() {
 }
 
 function getFoeMove() {
-  let rdm = Math.floor(Math.random() * 4);
-  console.log('random', rdm);
+  let nbMoves = foePoke.moveSet.length
+  let rdm = Math.floor(Math.random() * nbMoves);
   let move = foePoke.moveSet[rdm];
-  console.log('move', move);
   return move;
 }
 
