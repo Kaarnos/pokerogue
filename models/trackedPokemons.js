@@ -30,6 +30,10 @@ const trackedPokemonsSchema = mongoose.Schema({
   holdItem: {
     type: mongoose.Schema.Types.ObjectId, 
     ref : 'items'
+  },
+  data: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref : 'pokemonData'
   }
 });
 
