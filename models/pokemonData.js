@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pokemonSchema = mongoose.Schema({
+const pokemonDataSchema = mongoose.Schema({
   id : Number,
   name : String,
   height: Number,
@@ -11,8 +11,8 @@ const pokemonSchema = mongoose.Schema({
     attack : Number,
     defense : Number,
     hp : Number,
-    'special-attack': Number,
-    'special-defense': Number,
+    specialAttack: Number,
+    specialDefense: Number,
     speed : Number
   },
   baseXp: Number,
@@ -20,8 +20,8 @@ const pokemonSchema = mongoose.Schema({
   moves: [{type: mongoose.Schema.Types.ObjectId, ref : 'moves'}]
 });
 
-const PokemonModel = mongoose.model('pokemons', pokemonSchema);
+const PokemonDataModel = mongoose.model('pokemonData', pokemonDataSchema);
 
-module.exports = PokemonModel;
+module.exports = PokemonDataModel;
 
 

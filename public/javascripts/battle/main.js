@@ -37,6 +37,7 @@ async function setup() {
   requestAnimationFrame(drawGame);
 }
 
+
 // Start
 setup();
 
