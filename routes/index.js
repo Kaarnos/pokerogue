@@ -21,7 +21,17 @@ router.post('/addPokemon', async (req, res, next) => {
     response: 'called /addPokemon',
     pokemon : newPokemon
   });
-})
+});
+
+// router.post('/pickTwoRandomPokemon', async (req, res, next) => {
+//   console.log('req.body', req.body);
+
+//   const level = req.body.level;
+
+
+// })
+
+
 
 
 module.exports = router;

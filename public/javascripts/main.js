@@ -23,6 +23,7 @@ import {fetchTypesTable} from './battle/utils.js'
 
 ///////// GLOBAL VARIABLES DECRALATIONS
 
+
 let gameMap = dungeon[35].room;
 let myAttack = {
   move: {},
