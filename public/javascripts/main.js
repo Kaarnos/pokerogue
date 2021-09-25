@@ -93,11 +93,11 @@ async function setup() {
 }
 
 const addPoke = async () => {
-  const rawData = await fetch(`http://localhost:3000/addPokemon`,
+  const rawData = await fetch(`http://localhost:3000/pickOneRandomPokemon`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `name=pikachu`
+      body: `level=25`
     });
   const data = await rawData.json();
   console.log(data);

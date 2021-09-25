@@ -1,5 +1,8 @@
+// import fetch from 'node-fetch'
+const axios = require('axios');
+
 // Pokemon class
-export default class Pokemon {
+class Pokemon {
   constructor(pokeData, lvl) {
     this.sprites = this.getCoordsOfPokemonSprite(pokeData.id);
     this.data = {
@@ -140,16 +143,20 @@ export default class Pokemon {
 
   // get all data from API
   static async getPokemonData(id) {
-    const dataRaw = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    let data = await dataRaw.json();
+    const dataRaw = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    // let data = await dataRaw.json();
+    let data = dataRaw.data;
     return data;
   }
   
   // get all moves from API
   static async getMoveData(url) {
-    const dataRaw = await fetch(url);
-    let data = await dataRaw.json();
+    const dataRaw = await axios.get(url);
+    // let data = await dataRaw.json();
+    let data = dataRaw.data;
     return data;
   }
 
 }
+
+module.exports = Pokemon;
