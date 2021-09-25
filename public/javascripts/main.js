@@ -116,7 +116,8 @@ async function drawGame() {
   }
 
   // Test db
-  if (keysDown[84]) {
+  if (keysDown[84]) { //press t
+    keysDown[84] = false;
     addPoke();
   }
 

@@ -14,7 +14,7 @@ class Pokemon {
       specie: pokeData.species.name,
       baseStats: Object.fromEntries(pokeData.stats.map((obj) => [obj.stat.name, obj.base_stat])),
       baseExp: pokeData['base_experience'],
-      ability: pokeData.abilities.filter((obj) => obj['is_hidden'] === false),
+      abilities: pokeData.abilities.filter((obj) => obj['is_hidden'] === false),
       moves: this.getAllMoves(pokeData.moves)
     };
     this.level = lvl;

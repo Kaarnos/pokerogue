@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const abilitySchema = mongoose.Schema({
-  id: Number,
+  abilityId: Number,
   name: String
 });
 
