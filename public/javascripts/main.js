@@ -23,6 +23,7 @@ import {fetchTypesTable} from './battle/utils.js'
 
 ///////// GLOBAL VARIABLES DECRALATIONS
 
+
 let gameMap = dungeon[35].room;
 let myAttack = {
   move: {},
@@ -92,11 +93,11 @@ async function setup() {
 }
 
 const addPoke = async () => {
-  const rawData = await fetch(`http://localhost:3000/addPokemon`,
+  const rawData = await fetch(`http://localhost:3000/pickOneRandomPokemon`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `name=pikachu`
+      body: `level=25`
     });
   const data = await rawData.json();
   console.log(data);
@@ -115,9 +116,10 @@ async function drawGame() {
   }
 
   // Test db
-  // if (keysDown[84]) {
-  //   addPoke();
-  // }
+  if (keysDown[84]) { //press t
+    keysDown[84] = false;
+    addPoke();
+  }
 
 
 
